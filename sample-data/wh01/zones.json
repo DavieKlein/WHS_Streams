@@ -1,0 +1,27 @@
+[
+ {
+  "id": "BULK",
+  "zoneGroup": "OPSLAG",
+  "name": "Bulkopslag"
+ },
+ {
+  "id": "PICK",
+  "zoneGroup": "OPSLAG",
+  "name": "Picklocaties"
+ },
+ {
+  "id": "KOEL",
+  "zoneGroup": "KOEL",
+  "name": "Koelcel"
+ },
+ {
+  "id": "DOCK",
+  "zoneGroup": "DOCK",
+  "name": "Docks en staging"
+ },
+ {
+  "id": "RETOUR",
+  "zoneGroup": "OPSLAG",
+  "name": "Retouren"
+ }
+]

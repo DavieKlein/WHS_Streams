@@ -1,0 +1,27 @@
+[
+ {
+  "id": "BULK",
+  "locationType": "Bulk",
+  "lpControlled": true
+ },
+ {
+  "id": "PICK",
+  "locationType": "Pick",
+  "lpControlled": false
+ },
+ {
+  "id": "KOEL",
+  "locationType": "Bulk",
+  "lpControlled": true
+ },
+ {
+  "id": "DOCK",
+  "locationType": "Dock",
+  "lpControlled": true
+ },
+ {
+  "id": "STAGING",
+  "locationType": "Staging",
+  "lpControlled": true
+ }
+]

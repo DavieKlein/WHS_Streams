@@ -1,0 +1,26 @@
+[
+ {
+  "key": "5637144604",
+  "id": "Inkoop standaard",
+  "workOrderType": "Purchase orders",
+  "sequence": 1,
+  "workPool": "",
+  "valid": true
+ },
+ {
+  "key": "5637144605",
+  "id": "Verkoop via staging",
+  "workOrderType": "Sales orders",
+  "sequence": 1,
+  "workPool": "",
+  "valid": true
+ },
+ {
+  "key": "5637144606",
+  "id": "Aanvulling min/max",
+  "workOrderType": "Replenishment",
+  "sequence": 1,
+  "workPool": "",
+  "valid": true
+ }
+]

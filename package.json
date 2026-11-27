@@ -1,0 +1,12 @@
+{
+  "name": "wms-stroomviewer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local, read-only viewer of D365 F&O warehouse flows (work templates + location directives) on a floor plan. Cegeka house style.",
+  "scripts": {
+    "start": "node app/server.js",
+    "test": "node --test \"tests/*.test.js\"",
+    "check": "node --check app/server.js && for f in app/js/*.js app/*.js app/lib/*.js; do node --check $f || exit 1; done"
+  },
+  "engines": { "node": ">=18" }
+}

@@ -1,0 +1,58 @@
+[
+ {
+  "templateKey": "5637144604",
+  "lineNo": 1,
+  "workType": "Pick",
+  "workClass": "PURCH",
+  "directiveCode": ""
+ },
+ {
+  "templateKey": "5637144604",
+  "lineNo": 2,
+  "workType": "Put",
+  "workClass": "PURCH",
+  "directiveCode": ""
+ },
+ {
+  "templateKey": "5637144605",
+  "lineNo": 1,
+  "workType": "Pick",
+  "workClass": "SALES",
+  "directiveCode": ""
+ },
+ {
+  "templateKey": "5637144605",
+  "lineNo": 2,
+  "workType": "Put",
+  "workClass": "SALES",
+  "directiveCode": "STAGE"
+ },
+ {
+  "templateKey": "5637144605",
+  "lineNo": 3,
+  "workType": "Pick",
+  "workClass": "SALES",
+  "directiveCode": "STAGE"
+ },
+ {
+  "templateKey": "5637144605",
+  "lineNo": 4,
+  "workType": "Put",
+  "workClass": "SALES",
+  "directiveCode": "DOCK"
+ },
+ {
+  "templateKey": "5637144606",
+  "lineNo": 1,
+  "workType": "Pick",
+  "workClass": "REPL",
+  "directiveCode": ""
+ },
+ {
+  "templateKey": "5637144606",
+  "lineNo": 2,
+  "workType": "Put",
+  "workClass": "REPL",
+  "directiveCode": ""
+ }
+]

@@ -1,0 +1,211 @@
+{
+  "_comment": "Mapping D365 OData entity -> internal model. Field names come from the Microsoft Common Data Model schema of the standard data entities (github.com/microsoft/CDM, operationsCommon/Entities/SupplyChain/WMS). The OData entity set (public collection) name differs per version: leave entitySet empty and use 'Automatisch herkennen' on the Koppeling tab, which finds the entity set in $metadata whose fields contain all 'match' fields. 'A+B' joins fields with '|' (composite keys). The customer version is saved to data/entities.json (not in git).",
+  "sources": {
+    "locations": {
+      "label": "Locaties",
+      "cdmEntity": "WMSWarehouseLocationEntity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "WarehouseId",
+      "match": [
+        "WarehouseLocationId",
+        "WarehouseZoneId",
+        "WarehouseLocationProfileId",
+        "WarehouseAisleId",
+        "IsDefaultReceiptWarehouseLocation"
+      ],
+      "fields": {
+        "id": "WarehouseLocationId",
+        "warehouse": "WarehouseId",
+        "zoneId": "WarehouseZoneId",
+        "profileId": "WarehouseLocationProfileId",
+        "aisleId": "WarehouseAisleId",
+        "rack": "RackId",
+        "level": "ShelfId",
+        "position": "BinId",
+        "isDefaultReceipt": "IsDefaultReceiptWarehouseLocation",
+        "isDefaultIssue": "IsDefaultIssueWarehouseLocation",
+        "isDefaultProductionInput": "IsDefaultProductionInputWarehouseLocation",
+        "isDefaultProductionOutput": "IsDefaultProductionFinishedGoodsWarehouseLocation"
+      }
+    },
+    "zones": {
+      "label": "Zones",
+      "cdmEntity": "WHSWarehouseZoneEntity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "",
+      "match": [
+        "ZoneId",
+        "ZoneName",
+        "WarehouseZoneGroupId"
+      ],
+      "fields": {
+        "id": "ZoneId",
+        "name": "ZoneName",
+        "zoneGroup": "WarehouseZoneGroupId"
+      }
+    },
+    "profiles": {
+      "label": "Locatieprofielen",
+      "cdmEntity": "WHSWarehouseLocationProfileEntity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "",
+      "match": [
+        "ProfileId",
+        "WarehouseLocationTypeId",
+        "UseLicensePlateTracking"
+      ],
+      "fields": {
+        "id": "ProfileId",
+        "locationType": "WarehouseLocationTypeId",
+        "lpControlled": "UseLicensePlateTracking"
+      }
+    },
+    "workClasses": {
+      "label": "Work classes",
+      "cdmEntity": "WHSWarehouseWorkClassEntity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "",
+      "match": [
+        "ClassId",
+        "ClassDescription",
+        "WorkOrderType"
+      ],
+      "fields": {
+        "id": "ClassId",
+        "workOrderType": "WorkOrderType"
+      }
+    },
+    "directives": {
+      "label": "Location directives",
+      "cdmEntity": "WHSWarehouseLocationDirectiveV2Entity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "WarehouseId",
+      "match": [
+        "DirectiveId",
+        "WorkOrderType",
+        "WorkType",
+        "WarehouseLocationDirectiveCode",
+        "DirectiveQuery"
+      ],
+      "fields": {
+        "key": "WorkOrderType+DirectiveId+WorkType+InventorySiteId+WarehouseId",
+        "code": "DirectiveId",
+        "name": "DirectiveId",
+        "workOrderType": "WorkOrderType",
+        "workType": "WorkType",
+        "site": "InventorySiteId",
+        "warehouse": "WarehouseId",
+        "sequence": "SequenceNumber",
+        "directiveCode": "WarehouseLocationDirectiveCode",
+        "multipleSku": "AreMultipleItemsEnabled",
+        "query": "DirectiveQuery"
+      }
+    },
+    "directiveLines": {
+      "label": "Directive-regels",
+      "cdmEntity": "WHSWarehouseLocationDirectiveLineEntity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "WarehouseLocationDirectiveWarehouseId",
+      "match": [
+        "WarehouseLocationDirectiveId",
+        "SequenceNumber",
+        "MinimumWarehouseWorkOrderLineQuantity",
+        "LocateQuantityMethod"
+      ],
+      "fields": {
+        "key": "WarehouseLocationDirectiveWorkOrderType+WarehouseLocationDirectiveId+WarehouseLocationDirectiveWorkType+WarehouseLocationDirectiveInventorySiteId+WarehouseLocationDirectiveWarehouseId+SequenceNumber",
+        "directiveKey": "WarehouseLocationDirectiveWorkOrderType+WarehouseLocationDirectiveId+WarehouseLocationDirectiveWorkType+WarehouseLocationDirectiveInventorySiteId+WarehouseLocationDirectiveWarehouseId",
+        "sequence": "SequenceNumber",
+        "fromQty": "MinimumWarehouseWorkOrderLineQuantity",
+        "toQty": "MaximumWarehouseWorkOrderLineQuantity",
+        "unit": "WarehouseWorkOrderLineQuantityUnitSymbol",
+        "locateQty": "LocateQuantityMethod",
+        "restrictByUnit": "IsUnitOfMeasureRestrictionEnabled"
+      }
+    },
+    "directiveActions": {
+      "label": "Directive-acties",
+      "cdmEntity": "WHSWarehouseLocationDirectiveLineActionV2Entity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "WarehouseLocationDirectiveWarehouseId",
+      "match": [
+        "WarehouseLocationDirectiveId",
+        "ActionSequenceNumber",
+        "ActionName",
+        "ActionStrategy",
+        "ActionQuery"
+      ],
+      "fields": {
+        "key": "WarehouseLocationDirectiveWorkOrderType+WarehouseLocationDirectiveId+WarehouseLocationDirectiveWorkType+WarehouseLocationDirectiveInventorySiteId+WarehouseLocationDirectiveWarehouseId+WarehouseLocationDirectiveLineSequenceNumber+ActionSequenceNumber",
+        "lineKey": "WarehouseLocationDirectiveWorkOrderType+WarehouseLocationDirectiveId+WarehouseLocationDirectiveWorkType+WarehouseLocationDirectiveInventorySiteId+WarehouseLocationDirectiveWarehouseId+WarehouseLocationDirectiveLineSequenceNumber",
+        "sequence": "ActionSequenceNumber",
+        "name": "ActionName",
+        "strategy": "ActionStrategy",
+        "query": "ActionQuery"
+      }
+    },
+    "templates": {
+      "label": "Work templates",
+      "cdmEntity": "WHSWarehouseWorkTemplateV2Entity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "",
+      "match": [
+        "TemplateId",
+        "WorkOrderType",
+        "TemplateSequenceNumber",
+        "TemplateQuery"
+      ],
+      "fields": {
+        "key": "WorkOrderType+TemplateId",
+        "id": "TemplateId",
+        "workOrderType": "WorkOrderType",
+        "sequence": "TemplateSequenceNumber",
+        "workPool": "WarehouseWorkPoolId",
+        "query": "TemplateQuery"
+      }
+    },
+    "templateLines": {
+      "label": "Work template-regels",
+      "cdmEntity": "WHSWarehouseWorkTemplateLineEntity",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "",
+      "match": [
+        "WarehouseWorkTemplateId",
+        "LineNumber",
+        "WorkOrderLineType",
+        "WarehouseLocationDirectiveCode"
+      ],
+      "fields": {
+        "templateKey": "WarehouseWorkOrderType+WarehouseWorkTemplateId",
+        "lineNo": "LineNumber",
+        "workType": "WorkOrderLineType",
+        "workClass": "WarehouseWorkClassId",
+        "directiveCode": "WarehouseLocationDirectiveCode"
+      }
+    },
+    "queryRanges": {
+      "label": "Query-ranges uit X++-export (optioneel)",
+      "cdmEntity": "",
+      "entitySet": "",
+      "legalEntityField": "dataAreaId",
+      "warehouseField": "",
+      "match": [],
+      "fields": {
+        "source": "Source",
+        "key": "RefRecId",
+        "table": "TableName",
+        "field": "FieldName",
+        "value": "RangeValue"
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# Customer data, cache, layouts and secrets never go into git.
+/data/
+.env
+node_modules/
+*.log

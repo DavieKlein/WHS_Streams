@@ -1,0 +1,14 @@
+[
+ {
+  "id": "PURCH",
+  "workOrderType": "Purchase orders"
+ },
+ {
+  "id": "SALES",
+  "workOrderType": "Sales orders"
+ },
+ {
+  "id": "REPL",
+  "workOrderType": "Replenishment"
+ }
+]

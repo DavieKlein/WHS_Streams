@@ -1,0 +1,90 @@
+{
+ "warehouse": "WH01",
+ "grid": {
+  "cellMeters": 1,
+  "width": 100,
+  "height": 66
+ },
+ "shapes": [
+  {
+   "id": "s1",
+   "rotation": 0,
+   "type": "zone",
+   "ref": "BULK",
+   "label": "Bulk",
+   "x": 10,
+   "y": 4,
+   "w": 36,
+   "h": 24
+  },
+  {
+   "id": "s2",
+   "rotation": 0,
+   "type": "zone",
+   "ref": "PICK",
+   "label": "Pick",
+   "x": 52,
+   "y": 4,
+   "w": 32,
+   "h": 24
+  },
+  {
+   "id": "s3",
+   "rotation": 0,
+   "type": "zone",
+   "ref": "KOEL",
+   "label": "Koelcel",
+   "x": 10,
+   "y": 34,
+   "w": 20,
+   "h": 14
+  },
+  {
+   "id": "s4",
+   "rotation": 0,
+   "type": "zone",
+   "ref": "DOCK",
+   "label": "Docks",
+   "x": 0,
+   "y": 52,
+   "w": 96,
+   "h": 10
+  },
+  {
+   "id": "s5",
+   "rotation": 0,
+   "type": "point",
+   "role": "receipt",
+   "ref": "DOCK-IN-1",
+   "label": "Ontvangst",
+   "x": 10,
+   "y": 56,
+   "w": 8,
+   "h": 5
+  },
+  {
+   "id": "s6",
+   "rotation": 0,
+   "type": "point",
+   "role": "staging",
+   "ref": "STAGE-01",
+   "label": "Staging",
+   "x": 62,
+   "y": 56,
+   "w": 10,
+   "h": 5
+  },
+  {
+   "id": "s7",
+   "rotation": 0,
+   "type": "point",
+   "role": "baydoor",
+   "ref": "DOCK-OUT-1",
+   "label": "Expeditie",
+   "x": 84,
+   "y": 56,
+   "w": 8,
+   "h": 5
+  }
+ ]
+}

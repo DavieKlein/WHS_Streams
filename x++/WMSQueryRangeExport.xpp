@@ -1,0 +1,125 @@
+/// <summary>
+/// Exports the packed "Edit query" restrictions of location directives (header + actions) and
+/// work templates as rows: Source, RefRecId, TableName, FieldName, RangeValue.
+///
+/// Why a table + data entity instead of a custom service: the Stroomviewer only sends GET requests
+/// to D365 F&O (custom services are POST). Run this class (batch or menu item) in a dev/test
+/// environment, then expose WMSQueryRangeExportTable through a read-only data entity, e.g.
+/// public collection name "WMSQueryRangeExports", and enter that name on the Koppeling tab
+/// (source "Query-ranges"). Fields of the entity: Source, RefRecId, TableName, FieldName, RangeValue.
+///
+/// The packed query is located generically: every container field of the record is tried as a
+/// packed Query, so no assumption about the field name is needed.
+/// TODO(verify with a Cegeka developer): table/field names of the custom table, model/package, security.
+/// </summary>
+class WMSQueryRangeExport extends RunBase
+{
+    public static void main(Args _args)
+    {
+        WMSQueryRangeExport export = new WMSQueryRangeExport();
+        export.run();
+        info(strFmt("Query-ranges exported: %1 rows.", export.parmRowCount()));
+    }
+
+    private int rowCount;
+    public int parmRowCount() { return rowCount; }
+
+    public container pack() { return conNull(); }
+    public boolean unpack(container _packedClass) { return true; }
+
+    public void run()
+    {
+        WHSLocDirTable          locDir;
+        WHSLocDirAction         locDirAction;
+        WHSWorkTemplateTable    workTemplate;
+        WMSQueryRangeExportTable exportTable;
+
+        ttsbegin;
+        delete_from exportTable where exportTable.DataAreaId == curExt();
+
+        while select locDir
+        {
+            this.exportRecord('directive', locDir);
+        }
+        while select locDirAction
+        {
+            this.exportRecord('action', locDirAction);
+        }
+        while select workTemplate
+        {
+            this.exportRecord('template', workTemplate);
+        }
+        ttscommit;
+    }
+
+    /// Writes one marker row with empty table (= "checked, no restrictions") when a record has no ranges,
+    /// so the viewer can tell "no restrictions" apart from "unknown".
+    private void exportRecord(str _source, Common _record)
+    {
+        DictTable   dictTable = new DictTable(_record.TableId);
+        boolean     anyRange;
+        int         i;
+
+        for (i = 1; i <= dictTable.fieldCnt(); i++)
+        {
+            FieldId fieldId = dictTable.fieldCnt2Id(i);
+            DictField dictField = new DictField(_record.TableId, fieldId);
+            if (dictField.baseType() != Types::Container)
+            {
+                continue;
+            }
+            container packed = _record.(fieldId);
+            if (conLen(packed) == 0)
+            {
+                continue;
+            }
+            Query query;
+            try
+            {
+                query = new Query(packed);
+            }
+            catch
+            {
+                continue; // not a packed query
+            }
+            anyRange = this.exportQuery(_source, _record.RecId, query) || anyRange;
+        }
+        if (!anyRange)
+        {
+            this.insertRow(_source, _record.RecId, '', '', '');
+        }
+    }
+
+    private boolean exportQuery(str _source, RecId _recId, Query _query)
+    {
+        boolean any;
+        int ds, r;
+        for (ds = 1; ds <= _query.dataSourceCount(); ds++)
+        {
+            QueryBuildDataSource qbds = _query.dataSourceNo(ds);
+            for (r = 1; r <= qbds.rangeCount(); r++)
+            {
+                QueryBuildRange range = qbds.range(r);
+                if (range.value() == '')
+                {
+                    continue;
+                }
+                this.insertRow(_source, _recId, tableId2Name(qbds.table()), fieldId2Name(qbds.table(), range.field()), range.value());
+                any = true;
+            }
+        }
+        return any;
+    }
+
+    private void insertRow(str _source, RecId _recId, str _table, str _field, str _value)
+    {
+        WMSQueryRangeExportTable row;
+        row.Source     = _source;
+        row.RefRecId   = _recId;
+        row.TableName  = _table;
+        row.FieldName  = _field;
+        row.RangeValue = _value;
+        row.insert();
+        rowCount++;
+    }
+}

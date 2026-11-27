@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stroomviewer WMS — Cegeka</title>
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <!-- Official Cegeka _tight logo goes in assets/cegeka-logo.svg (not included); the wordmark is a fallback. -->
+        <img class="brand-logo" id="brandLogo" src="./assets/cegeka-logo.svg" alt="Cegeka">
+        <span class="brand-wordmark" id="brandWordmark" hidden>Cegeka</span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-product">Stroomviewer WMS</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="status-pill" id="envPill">Voorbeelddata</span>
+        <span class="status-pill" id="dataPill">—</span>
+        <span class="status-pill readonly" title="De tool stuurt alleen GET-verzoeken naar D365 F&amp;O">Read-only</span>
+      </div>
+    </header>
+
+    <nav class="steps" id="tabs" aria-label="Onderdelen">
+      <button data-tab="draw" class="active">Tekenen</button>
+      <button data-tab="flows">Stromen</button>
+      <button data-tab="checks">Controles <span class="count" id="checksCount" hidden></span></button>
+      <button data-tab="connect">Koppeling</button>
+    </nav>
+
+    <main class="content">
+      <div id="globalMessage"></div>
+
+      <!-- ================= Tekenen ================= -->
+      <section id="tab-draw" class="workspace">
+        <aside class="sidebar">
+          <div class="panel">
+            <div class="panel-head">Warehouse</div>
+            <div class="panel-body">
+              <select class="wh-select" aria-label="Warehouse"></select>
+              <div class="hint" id="layoutSource"></div>
+              <div class="btn-row">
+                <button class="btn-primary btn-small" id="saveLayout">Opslaan</button>
+                <button class="btn-quiet btn-small" id="reloadLayout">Laden</button>
+              </div>
+              <div id="layoutMessage"></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">Nieuw vlak</div>
+            <div class="panel-body">
+              <label class="field">Type
+                <select id="newType">
+                  <option value="zone">Zone</option>
+                  <option value="aisle">Gang / stelling</option>
+                  <option value="location">Locatie</option>
+                  <option value="point">Vast punt</option>
+                </select>
+              </label>
+              <p class="hint">Kies <b>Rechthoek</b> boven het canvas en sleep. Sleep op een lege plek om te pannen, scroll om te zoomen.</p>
+            </div>
+          </div>
+          <details class="panel">
+            <summary>Raster en onderlegger</summary>
+            <div class="panel-body">
+              <div class="grid-2">
+                <label class="field">Meter per vak<input type="number" id="gridMeters" min="0.1" step="0.1"></label>
+                <label class="field">Snap (vakken)
+                  <select id="snapStep"><option value="0.5">0,5</option><option value="1" selected>1</option><option value="2">2</option></select>
+                </label>
+                <label class="field">Breedte (vakken)<input type="number" id="gridW" min="10" step="1"></label>
+                <label class="field">Hoogte (vakken)<input type="number" id="gridH" min="10" step="1"></label>
+              </div>
+              <label class="field">Onderlegger (foto of PNG van de klant)
+                <input type="file" id="underlayFile" accept="image/png,image/jpeg,image/svg+xml">
+              </label>
+              <label class="field">Transparantie onderlegger<input type="range" id="underlayOpacity" min="0.1" max="1" step="0.05" value="0.4"></label>
+              <button class="btn-quiet btn-small btn-danger" id="underlayClear">Onderlegger weghalen</button>
+              <p class="hint">De onderlegger blijft alleen in deze browsersessie en wordt niet opgeslagen.</p>
+            </div>
+          </details>
+          <div class="panel">
+            <div class="panel-head">Nog niet getekend <span class="count-badge" id="unplacedTotal">0</span></div>
+            <div class="panel-body">
+              <ul class="list" id="unplacedList"></ul>
+            </div>
+          </div>
+        </aside>
+
+        <div class="canvas-panel">
+          <div class="canvas-toolbar">
+            <button class="btn-quiet btn-small on" data-tool="select" title="Selecteren en verplaatsen (V)">Selecteren</button>
+            <button class="btn-quiet btn-small" data-tool="rect" title="Rechthoek tekenen (N)">Rechthoek</button>
+            <button class="btn-quiet btn-small" id="undoBtn" title="Ongedaan maken (Ctrl+Z)">Ongedaan maken</button>
+            <button class="btn-quiet btn-small" id="redoBtn" title="Opnieuw (Ctrl+Y)">Opnieuw</button>
+            <span class="spacer"></span>
+            <button class="btn-quiet btn-small" data-zoom="out" aria-label="Uitzoomen">−</button>
+            <span class="zoom-label" data-zoom-label></span>
+            <button class="btn-quiet btn-small" data-zoom="in" aria-label="Inzoomen">+</button>
+            <button class="btn-quiet btn-small" data-zoom="fit">Passend</button>
+          </div>
+          <svg class="map" id="drawMap" aria-label="Plattegrond tekenen"></svg>
+          <div class="canvas-foot" id="drawFoot"></div>
+        </div>
+
+        <aside class="detail">
+          <div class="panel">
+            <div class="panel-head">Geselecteerd vlak</div>
+            <div class="panel-body" id="shapeDetail"></div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ================= Stromen ================= -->
+      <section id="tab-flows" class="workspace" hidden>
+        <aside class="sidebar">
+          <div class="panel">
+            <div class="panel-head">Filters</div>
+            <div class="panel-body">
+              <label class="field">Warehouse<select class="wh-select"></select></label>
+              <div class="field">Work order type<div id="filterTypes" class="legend"></div></div>
+              <label class="field">Work template<select id="filterTemplate"></select></label>
+              <label class="field">Directive<select id="filterDirective"></select></label>
+              <label class="checkbox-row"><input type="checkbox" id="filterProblemsOnly"> Alleen onvolledig of conflict</label>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">Stromen</div>
+            <div class="panel-body"><ul class="list" id="flowList"></ul></div>
+          </div>
+        </aside>
+
+        <div>
+          <div class="canvas-panel">
+            <div class="canvas-toolbar">
+              <button class="btn-quiet btn-small" id="exportSvg">Exporteer SVG</button>
+              <button class="btn-quiet btn-small" id="exportPng">Exporteer PNG</button>
+              <span class="spacer"></span>
+              <button class="btn-quiet btn-small" data-zoom="out" aria-label="Uitzoomen">−</button>
+              <span class="zoom-label" data-zoom-label></span>
+              <button class="btn-quiet btn-small" data-zoom="in" aria-label="Inzoomen">+</button>
+              <button class="btn-quiet btn-small" data-zoom="fit">Passend</button>
+            </div>
+            <svg class="map" id="flowMap" aria-label="Stromen op de plattegrond"></svg>
+            <div class="canvas-foot">Klik op een pijl voor template, directive en ranges. Klik op een vlak voor de directives die erin zoeken.</div>
+          </div>
+          <div class="panel" style="margin-top:16px">
+            <div class="panel-head">Legenda</div>
+            <div class="panel-body"><div class="legend" id="legend"></div></div>
+          </div>
+        </div>
+
+        <aside class="detail">
+          <div class="panel">
+            <div class="panel-head">Details</div>
+            <div class="panel-body" id="flowDetail"><p class="hint">Klik op een pijl of een vlak.</p></div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ================= Controles ================= -->
+      <section id="tab-checks" hidden>
+        <div class="summary-cards" id="checkCards"></div>
+        <div id="checkTables"></div>
+      </section>
+
+      <!-- ================= Koppeling ================= -->
+      <section id="tab-connect" hidden>
+        <p class="hint">De tool haalt de configuratie read-only uit D365 F&amp;O. Secrets blijven in het lokale Node-proces: ze komen nooit in de browser, in git of in logbestanden.</p>
+        <div class="two-col">
+          <div>
+            <div class="panel">
+              <div class="panel-head">D365 F&amp;O-omgeving</div>
+              <div class="panel-body" id="connStatus"></div>
+            </div>
+            <details class="panel" id="connFormPanel">
+              <summary>Verbinding instellen</summary>
+              <div class="panel-body">
+                <form id="connForm" autocomplete="off">
+                  <div class="field-row">
+                    <label>Omgeving
+                      <select name="label"><option>DEV</option><option>TEST</option><option selected>ACC</option><option>PROD</option></select>
+                    </label>
+                    <label class="grow">Environment URL<input type="text" name="environmentUrl" placeholder="https://klant-acc.sandbox.operations.dynamics.com"></label>
+                  </div>
+                  <div class="field-row">
+                    <label class="grow">Tenant ID<input type="text" name="tenantId" placeholder="00000000-0000-0000-0000-000000000000"></label>
+                    <label class="grow">Client ID<input type="text" name="clientId" placeholder="00000000-0000-0000-0000-000000000000"></label>
+                  </div>
+                  <div class="field-row">
+                    <label class="grow">Client secret<input type="password" name="clientSecret" autocomplete="new-password"></label>
+                  </div>
+                  <label class="checkbox-row"><input type="checkbox" name="remember"> Onthouden op deze computer (Windows Credential Manager)</label>
+                  <div class="btn-row" style="margin-top:10px">
+                    <button class="btn-primary" type="submit" id="connectBtn">Verbinden</button>
+                  </div>
+                  <div id="connMessage"></div>
+                </form>
+                <p class="hint">Gebruik een app-registratie die in D365 gekoppeld is aan een gebruiker met alleen een leesrol (System administration → Azure Active Directory applications). Bij Verbinden wordt meteen een token aangevraagd, zodat een fout secret direct zichtbaar is.</p>
+              </div>
+            </details>
+            <div class="panel">
+              <div class="panel-head">Scope en databron</div>
+              <div class="panel-body">
+                <div class="field-row">
+                  <label>Databron
+                    <select id="dataMode"><option value="sample">Voorbeelddata (fictief magazijn)</option><option value="live">Live data uit D365 (cache)</option></select>
+                  </label>
+                  <label>Legal entity<input type="text" id="scopeLe" placeholder="bijv. NL01" size="8"></label>
+                  <label>Warehouse<input type="text" id="scopeWh" placeholder="bijv. WH01" size="8"></label>
+                </div>
+                <div class="btn-row">
+                  <button class="btn-quiet" id="saveScope">Opslaan</button>
+                  <button class="btn-primary" id="refreshData">Ververs data</button>
+                </div>
+                <div id="scopeMessage"></div>
+                <div id="refreshResult"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="panel">
+              <div class="panel-head">Entiteiten en velden</div>
+              <div class="panel-body">
+                <p class="hint">De tool gebruikt de standaard D365-entiteiten (o.a. location directives V2, directive-regels en -acties V2, work templates V2 en -regels, locaties, zones). De veldnamen komen uit het Microsoft CDM-schema; de naam waaronder een entiteit in OData staat verschilt per versie. <b>Automatisch herkennen</b> zoekt die op in <span class="mono">/data/$metadata</span> aan de hand van de velden. De klantversie wordt opgeslagen in <span class="mono">data/entities.json</span> (niet in git).</p>
+                <div class="btn-row">
+                  <button class="btn-primary btn-small" id="autoDetect">Automatisch herkennen</button>
+                  <button class="btn-quiet btn-small" id="checkEntities">Controleer tegen $metadata</button>
+                  <button class="btn-quiet btn-small" id="saveEntities">Mapping opslaan</button>
+                  <button class="btn-quiet btn-small btn-danger" id="resetEntities">Standaard herstellen</button>
+                </div>
+                <div id="entitiesMessage"></div>
+                <div id="entitiesTable"></div>
+                <h3>Zoeken in $metadata</h3>
+                <div class="field-row">
+                  <label class="grow">Zoekterm<input type="search" id="mdQuery" placeholder="bijv. LocationDirective"></label>
+                  <button class="btn-quiet" id="mdSearch">Zoek</button>
+                </div>
+                <div id="mdResults"></div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head">Query-ranges (restricties uit "Edit query")</div>
+              <div class="panel-body">
+                <p class="hint">De standaard V2-entiteiten leveren de query als tekstveld mee (<span class="mono">DirectiveQuery</span>, <span class="mono">ActionQuery</span>, <span class="mono">TemplateQuery</span>). De tool leest die uit; wat hij niet kan lezen telt als <i>onbekend</i>, nooit als "geen restricties". Lukt dat niet, dan zijn er twee terugvalroutes: de X++-export uit <span class="mono">x++/</span>, of een CSV met <span class="mono">bron, recId, tabel, veld, waarde</span> (recId mag ook de directive-naam, <span class="mono">directive/regel/actie</span> of template-ID zijn). Een export of CSV gaat voor het tekstveld.</p>
+                <div id="querySamples"></div>
+                <div id="rangesStatus"></div>
+                <label class="field">CSV uploaden<input type="file" id="rangesFile" accept=".csv,text/csv"></label>
+                <button class="btn-link" id="rangesTemplate" type="button">Leeg CSV-sjabloon downloaden</button>
+                <div id="rangesMessage"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./js/core.js"></script>
+  <script src="./js/util.js"></script>
+  <script src="./js/state.js"></script>
+  <script src="./js/map.js"></script>
+  <script src="./js/draw.js"></script>
+  <script src="./js/flows.js"></script>
+  <script src="./js/checks.js"></script>
+  <script src="./js/connect.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>

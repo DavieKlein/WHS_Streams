@@ -1,0 +1,412 @@
+[
+ {
+  "id": "B01-01-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B01",
+  "profileId": "BULK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B01-01-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B01",
+  "profileId": "BULK",
+  "rack": "1",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B01-02-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B01",
+  "profileId": "BULK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B01-02-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B01",
+  "profileId": "BULK",
+  "rack": "2",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B01-03-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B01",
+  "profileId": "BULK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B01-03-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B01",
+  "profileId": "BULK",
+  "rack": "3",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B02-01-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B02",
+  "profileId": "BULK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B02-01-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B02",
+  "profileId": "BULK",
+  "rack": "1",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B02-02-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B02",
+  "profileId": "BULK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B02-02-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B02",
+  "profileId": "BULK",
+  "rack": "2",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B02-03-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B02",
+  "profileId": "BULK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B02-03-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B02",
+  "profileId": "BULK",
+  "rack": "3",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B03-01-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B03",
+  "profileId": "BULK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B03-01-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B03",
+  "profileId": "BULK",
+  "rack": "1",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B03-02-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B03",
+  "profileId": "BULK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B03-02-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B03",
+  "profileId": "BULK",
+  "rack": "2",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "B03-03-1",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B03",
+  "profileId": "BULK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "B03-03-2",
+  "warehouse": "WH01",
+  "zoneId": "BULK",
+  "aisleId": "B03",
+  "profileId": "BULK",
+  "rack": "3",
+  "level": "2",
+  "position": "1"
+ },
+ {
+  "id": "P01-01-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P01",
+  "profileId": "PICK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P01-02-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P01",
+  "profileId": "PICK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P01-03-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P01",
+  "profileId": "PICK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P02-01-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P02",
+  "profileId": "PICK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P02-02-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P02",
+  "profileId": "PICK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P02-03-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P02",
+  "profileId": "PICK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P03-01-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P03",
+  "profileId": "PICK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P03-02-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P03",
+  "profileId": "PICK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P03-03-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P03",
+  "profileId": "PICK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P04-01-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P04",
+  "profileId": "PICK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P04-02-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P04",
+  "profileId": "PICK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "P04-03-1",
+  "warehouse": "WH01",
+  "zoneId": "PICK",
+  "aisleId": "P04",
+  "profileId": "PICK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "K01-01-1",
+  "warehouse": "WH01",
+  "zoneId": "KOEL",
+  "aisleId": "K01",
+  "profileId": "KOEL",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "K01-02-1",
+  "warehouse": "WH01",
+  "zoneId": "KOEL",
+  "aisleId": "K01",
+  "profileId": "KOEL",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "K01-03-1",
+  "warehouse": "WH01",
+  "zoneId": "KOEL",
+  "aisleId": "K01",
+  "profileId": "KOEL",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "K01-04-1",
+  "warehouse": "WH01",
+  "zoneId": "KOEL",
+  "aisleId": "K01",
+  "profileId": "KOEL",
+  "rack": "4",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "R01-01-1",
+  "warehouse": "WH01",
+  "zoneId": "RETOUR",
+  "aisleId": "R01",
+  "profileId": "BULK",
+  "rack": "1",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "R01-02-1",
+  "warehouse": "WH01",
+  "zoneId": "RETOUR",
+  "aisleId": "R01",
+  "profileId": "BULK",
+  "rack": "2",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "R01-03-1",
+  "warehouse": "WH01",
+  "zoneId": "RETOUR",
+  "aisleId": "R01",
+  "profileId": "BULK",
+  "rack": "3",
+  "level": "1",
+  "position": "1"
+ },
+ {
+  "id": "DOCK-IN-1",
+  "warehouse": "WH01",
+  "zoneId": "DOCK",
+  "aisleId": "",
+  "profileId": "DOCK",
+  "rack": "",
+  "level": "",
+  "position": ""
+ },
+ {
+  "id": "DOCK-OUT-1",
+  "warehouse": "WH01",
+  "zoneId": "DOCK",
+  "aisleId": "",
+  "profileId": "DOCK",
+  "rack": "",
+  "level": "",
+  "position": ""
+ },
+ {
+  "id": "STAGE-01",
+  "warehouse": "WH01",
+  "zoneId": "DOCK",
+  "aisleId": "",
+  "profileId": "STAGING",
+  "rack": "",
+  "level": "",
+  "position": ""
+ },
+ {
+  "id": "OVERFLOW-1",
+  "warehouse": "WH01",
+  "zoneId": "",
+  "aisleId": "",
+  "profileId": "BULK",
+  "rack": "",
+  "level": "",
+  "position": ""
+ }
+]

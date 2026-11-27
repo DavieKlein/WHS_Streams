@@ -1,0 +1,83 @@
+[
+ {
+  "key": "5637144577",
+  "directiveKey": "5637144576",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144580",
+  "directiveKey": "5637144579",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 99,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144583",
+  "directiveKey": "5637144579",
+  "sequence": 2,
+  "fromQty": 100,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144586",
+  "directiveKey": "5637144585",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144589",
+  "directiveKey": "5637144588",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144593",
+  "directiveKey": "5637144592",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144596",
+  "directiveKey": "5637144595",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144599",
+  "directiveKey": "5637144598",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ },
+ {
+  "key": "5637144602",
+  "directiveKey": "5637144601",
+  "sequence": 1,
+  "fromQty": 0,
+  "toQty": 0,
+  "unit": "pcs",
+  "locateQty": "Unit"
+ }
+]

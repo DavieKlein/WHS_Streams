@@ -1,0 +1,90 @@
+[
+ {
+  "key": "5637144578",
+  "lineKey": "5637144577",
+  "sequence": 1,
+  "name": "Koelcel",
+  "strategy": "Consolidate",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144581",
+  "lineKey": "5637144580",
+  "sequence": 1,
+  "name": "Lege picklocatie",
+  "strategy": "EmptyLocationWithNoIncomingWork",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144582",
+  "lineKey": "5637144580",
+  "sequence": 2,
+  "name": "Bulk",
+  "strategy": "Consolidate",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144584",
+  "lineKey": "5637144583",
+  "sequence": 1,
+  "name": "Bulk grote aantallen",
+  "strategy": "None",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144587",
+  "lineKey": "5637144586",
+  "sequence": 1,
+  "name": "Bulk",
+  "strategy": "None",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144590",
+  "lineKey": "5637144589",
+  "sequence": 1,
+  "name": "Picklocatie",
+  "strategy": "FEFOBatchReservation",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144591",
+  "lineKey": "5637144589",
+  "sequence": 2,
+  "name": "Bulk",
+  "strategy": "None",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144594",
+  "lineKey": "5637144593",
+  "sequence": 1,
+  "name": "Staging",
+  "strategy": "None",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144597",
+  "lineKey": "5637144596",
+  "sequence": 1,
+  "name": "Expeditiedeur",
+  "strategy": "None",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144600",
+  "lineKey": "5637144599",
+  "sequence": 1,
+  "name": "Bulk",
+  "strategy": "None",
+  "allowSplit": false
+ },
+ {
+  "key": "5637144603",
+  "lineKey": "5637144602",
+  "sequence": 1,
+  "name": "Picklocatie",
+  "strategy": "None",
+  "allowSplit": false
+ }
+]
